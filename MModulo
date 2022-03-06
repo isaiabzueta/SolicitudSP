@@ -41,7 +41,7 @@ End If
 'ActiveSheet.Range("A4:H17").Select
 'ActiveWorkbook.EnvelopeVisible = True
 'With ActiveSheet.MailEnvelope
-'.Item.To = "malavek1987@gmail.com"
+'.Item.To = "abzueta.isai@gmail.com"
 '.Cc = Hoja1.Range("H12").Value
 '.Item.Subject = "Solicitud de SP Nº : " & Hoja2.Cells(Fila, 18).Value
 '.Introduction = "Se adjunta el comprobante de tu solicitud"
