@@ -1,0 +1,15 @@
+'Monto total SP
+Sub totalSp()
+
+Dim total As Double
+
+If Sheets("Formulario").Range("H8").Value = "" Then
+Sheets("Formulario").Range("H10").Value = ""
+
+Else
+
+total = Sheets("Formulario").Range("H8").Value * Sheets("Formulario").Range("B10").Value
+Sheets("Formulario").Range("H10").Value = total
+End If
+
+End Sub
