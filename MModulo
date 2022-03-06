@@ -1,0 +1,168 @@
+Sub Guardar()
+
+Dim Celda As Range
+Dim Fila As Long
+Dim Uf As Long
+Dim Pregunta As Integer
+
+Pregunta = MsgBox("¿Esta seguro que desea generar esta solicitud?", vbOKCancel, "Guardar registro")
+If Pregunta = 2 Then Exit Sub
+
+'Ubicar una celda
+If Celda Is Nothing Then
+
+    Fila = Hoja2.Cells(1048576, 1).End(xlUp).Row + 1
+    Hoja2.Cells(Fila, 1).Value = Hoja1.Range("B4").Value
+    Hoja2.Cells(Fila, 2).Value = Hoja1.Range("E4").Value
+    Hoja2.Cells(Fila, 3).Value = Hoja1.Range("H4").Value
+    Hoja2.Cells(Fila, 4).Value = Hoja1.Range("B6").Value
+    Hoja2.Cells(Fila, 5).Value = Hoja1.Range("E6").Value
+    Hoja2.Cells(Fila, 6).Value = Hoja1.Range("H6").Value
+    Hoja2.Cells(Fila, 7).Value = Hoja1.Range("B8").Value
+    Hoja2.Cells(Fila, 8).Value = Hoja1.Range("E8").Value
+    Hoja2.Cells(Fila, 9).Value = Hoja1.Range("H8").Value
+    Hoja2.Cells(Fila, 10).Value = Hoja1.Range("B10").Value
+    Hoja2.Cells(Fila, 11).Value = Hoja1.Range("E10").Value
+    Hoja2.Cells(Fila, 12).Value = Hoja1.Range("H10").Value
+    Hoja2.Cells(Fila, 13).Value = Hoja1.Range("B12").Value
+    Hoja2.Cells(Fila, 14).Value = Hoja1.Range("E12").Value
+    Hoja2.Cells(Fila, 15).Value = Hoja1.Range("H12").Value
+    Hoja2.Cells(Fila, 16).Value = Hoja1.Range("B14").Value
+    Hoja2.Cells(Fila, 17).Value = Hoja1.Range("E14").Value
+    
+    With Hoja2
+    Uf = .Range("R" & Rows.Count).End(xlUp).Row
+    .Range("R" & Uf) = "SF22" & Uf
+    End With
+    
+End If
+
+'Para enviar Correo
+'ActiveSheet.Range("A4:H17").Select
+'ActiveWorkbook.EnvelopeVisible = True
+'With ActiveSheet.MailEnvelope
+'.Item.To = "malavek1987@gmail.com"
+'.Cc = Hoja1.Range("H12").Value
+'.Item.Subject = "Solicitud de SP Nº : " & Hoja2.Cells(Fila, 18).Value
+'.Introduction = "Se adjunta el comprobante de tu solicitud"
+'.Item.Send
+'End With
+
+MsgBox "Solicitud generada con exito, te enviamos un correo con los datos de la solicitud"
+
+End Sub
+
+Sub Modificar()
+
+Dim Celda As Range
+    
+If Hoja1.Range("H1") = "" Then
+    MsgBox "Ingrese un N° de solicitud"
+    Else
+
+    'Ubicarse en una celda
+    Set Celda = Hoja2.Range("R:R").Find(What:=Hoja1.Range("H1").Value, _
+                                    After:=Hoja2.Range("R1"))
+        If Celda Is Nothing Then
+            Hoja1.Range("H1").Value = ""
+            MsgBox "El N° de solicitud no existe"
+            Else
+                Celda.Offset(0, -17).Value = Hoja1.Range("B4").Value
+                Celda.Offset(0, -16).Value = Hoja1.Range("E4").Value
+                Celda.Offset(0, -15).Value = Hoja1.Range("H4").Value
+                Celda.Offset(0, -14).Value = Hoja1.Range("B6").Value
+                Celda.Offset(0, -13).Value = Hoja1.Range("E6").Value
+                Celda.Offset(0, -12).Value = Hoja1.Range("H6").Value
+                Celda.Offset(0, -11).Value = Hoja1.Range("B8").Value
+                Celda.Offset(0, -10).Value = Hoja1.Range("E8").Value
+                Celda.Offset(0, -9).Value = Hoja1.Range("H8").Value
+                Celda.Offset(0, -8).Value = Hoja1.Range("B10").Value
+                Celda.Offset(0, -7).Value = Hoja1.Range("E10").Value
+                Celda.Offset(0, -6).Value = Hoja1.Range("H10").Value
+                Celda.Offset(0, -5).Value = Hoja1.Range("B12").Value
+                Celda.Offset(0, -4).Value = Hoja1.Range("E12").Value
+                Celda.Offset(0, -3).Value = Hoja1.Range("H12").Value
+                Celda.Offset(0, -2).Value = Hoja1.Range("B14").Value
+                Celda.Offset(0, -1).Value = Hoja1.Range("E14").Value
+            End If
+            MsgBox "Registro modificado existosamente"
+        End If
+        Call Limpiar
+        
+End Sub
+Sub Limpiar()
+
+Dim rango As Range
+
+Hoja1.Range("B4").Value = ""
+Hoja1.Range("E4").Value = ""
+Hoja1.Range("H4").Value = ""
+Hoja1.Range("B6").Value = ""
+Hoja1.Range("H6").Value = ""
+Hoja1.Range("B8").Value = ""
+Hoja1.Range("H8").Value = ""
+Hoja1.Range("B12").Value = ""
+Hoja1.Range("E12").Value = ""
+Hoja1.Range("H12").Value = ""
+Hoja1.Range("B14").Value = ""
+Hoja1.Range("E14").Value = ""
+
+Hoja1.Range("H1").Value = ""
+
+End Sub
+Sub Eliminar()
+
+Dim Celda As Range
+
+If Hoja1.Range("H1").Value = "" Then
+    MsgBox "Ingrese un N° de solicitud para eliminar"
+    
+        Else
+
+        Set Celda = Hoja2.Range("R:R").Find(What:=Hoja1.Range("H1").Value, _
+                                      After:=Hoja2.Range("R1"))
+            If Celda Is Nothing Then
+                Hoja1.Range("H1").Value = ""
+                MsgBox "El N° de solitud no existe"
+                    Else
+                    Celda.Value = ""
+                    Call Limpiar
+            End If
+End If
+MsgBox "Solicitud Eliminada con exito"
+End Sub
+Sub Buscar()
+
+    Dim Celda As Range
+    
+If Hoja1.Range("H1") = "" Then
+    MsgBox "Ingrese un N° de solicitud"
+    Else
+
+    'Ubicarse en una celda
+    Set Celda = Hoja2.Range("R:R").Find(What:=Hoja1.Range("H1").Value, _
+                                    After:=Hoja2.Range("R1"))
+        If Celda Is Nothing Then
+            Hoja1.Range("H1").Value = ""
+            MsgBox "El N° de solicitud no existe"
+            Else
+                Hoja1.Range("B4").Value = Celda.Offset(0, -17).Value
+                Hoja1.Range("E4").Value = Celda.Offset(0, -16).Value
+                Hoja1.Range("H4").Value = Celda.Offset(0, -15).Value
+                Hoja1.Range("B6").Value = Celda.Offset(0, -14).Value
+                Hoja1.Range("E6").Value = Celda.Offset(0, -13).Value
+                Hoja1.Range("H6").Value = Celda.Offset(0, -12).Value
+                Hoja1.Range("B8").Value = Celda.Offset(0, -11).Value
+                Hoja1.Range("E8").Value = Celda.Offset(0, -10).Value
+                Hoja1.Range("H8").Value = Celda.Offset(0, -9).Value
+                Hoja1.Range("B10").Value = Celda.Offset(0, -8).Value
+                Hoja1.Range("E10").Value = Celda.Offset(0, -7).Value
+                Hoja1.Range("H10").Value = Celda.Offset(0, -6).Value
+                Hoja1.Range("B12").Value = Celda.Offset(0, -5).Value
+                Hoja1.Range("E12").Value = Celda.Offset(0, -4).Value
+                Hoja1.Range("H12").Value = Celda.Offset(0, -3).Value
+                Hoja1.Range("B14").Value = Celda.Offset(0, -2).Value
+                Hoja1.Range("E14").Value = Celda.Offset(0, -1).Value
+            End If
+        End If
+End Sub
