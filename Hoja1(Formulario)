@@ -1,0 +1,23 @@
+'Buscar Cod. proveedor, Cod. Material, PU, Moneda y calcular total
+Private Sub Worksheet_Change(ByVal Target As Range)
+If (Target.Row = 6) And (Target.Column = 2) Then
+    Call Buscar.buscarCProveedor
+End If
+
+If (Target.Row = 6) And (Target.Column = 8) Then
+    Call Buscar.BuscarMaterial
+End If
+
+If (Target.Row = 8) And (Target.Column = 8) Then
+    Call Operaciones.totalSp
+End If
+
+End Sub
+
+'Mostrar calendario
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+If (Target.Row = 4) And (Target.Column = 2) Then
+        Load frmCalendario
+        frmCalendario.Show
+    End If
+End Sub
